@@ -5,6 +5,8 @@ import {
   Instagram,
   MessageCircle,
 } from "lucide-react";
+import Image from "next/image";
+import Link from "next/link";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -20,6 +22,13 @@ export default function Footer() {
               alt="Sumo"
               className="h-8 w-auto filter brightness-0 invert"
             /> */}
+            <Image
+              src={"https://i.postimg.cc/v8xxnkmB/logo-horizontal.png"}
+              alt="Sumo"
+              width={220}
+              height={80}
+              className="h-8 w-auto"
+            />
             <p className="text-gray-400">
               Smart restaurant management software that helps you track
               everything, effortlessly.
@@ -37,33 +46,33 @@ export default function Footer() {
             <h4 className="text-lg font-semibold">Product</h4>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <a
+                <Link
                   href="#features"
                   className="hover:text-white transition-colors"
                 >
                   Features
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="https://sumo.ethertech.ltd"
                   className="hover:text-white transition-colors"
                 >
                   Live Demo
-                </a>
+                </Link>
               </li>
               <li>
-                <a
+                <Link
                   href="#pricing"
                   className="hover:text-white transition-colors"
                 >
                   Pricing
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link href="#" className="hover:text-white transition-colors">
                   API
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -73,24 +82,24 @@ export default function Footer() {
             <h4 className="text-lg font-semibold">Company</h4>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link href="#" className="hover:text-white transition-colors">
                   About
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link href="#" className="hover:text-white transition-colors">
                   Blog
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link href="#" className="hover:text-white transition-colors">
                   Careers
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link href="#" className="hover:text-white transition-colors">
                   Press
-                </a>
+                </Link>
               </li>
             </ul>
           </div>
@@ -100,24 +109,24 @@ export default function Footer() {
             <h4 className="text-lg font-semibold">Support</h4>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link href="#" className="hover:text-white transition-colors">
                   Help Center
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link href="#" className="hover:text-white transition-colors">
                   Contact
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link href="#" className="hover:text-white transition-colors">
                   Privacy
-                </a>
+                </Link>
               </li>
               <li>
-                <a href="#" className="hover:text-white transition-colors">
+                <Link href="#" className="hover:text-white transition-colors">
                   Terms
-                </a>
+                </Link>
               </li>
             </ul>
           </div>

@@ -1,8 +1,14 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import Image from "next/image";
+import { useState } from "react";
 
 export default function Integrations() {
+  const [imageErrors, setImageErrors] = useState<{ [key: string]: boolean }>(
+    {}
+  );
+
   const integrations = [
     {
       name: "QuickBooks",
@@ -77,23 +83,29 @@ export default function Integrations() {
               className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-200 text-center"
             >
               <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                <img
-                  src={integration.logo}
-                  alt={integration.name}
-                  className="w-full h-full object-contain"
-                  onError={(e) => {
-                    // Fallback to text logo if image fails to load
-                    e.currentTarget.style.display = "none";
-                    const fallback = e.currentTarget
-                      .nextElementSibling as HTMLElement;
-                    if (fallback) fallback.style.display = "flex";
-                  }}
-                />
-                <div className="w-16 h-16 bg-gray-100 rounded-lg hidden items-center justify-center">
-                  <span className="text-2xl font-bold text-gray-600">
-                    {integration.name.charAt(0)}
-                  </span>
-                </div>
+                {!imageErrors[integration.name] ? (
+                  <div className="relative w-16 h-16">
+                    <Image
+                      src={integration.logo}
+                      alt={integration.name}
+                      fill
+                      className="object-contain"
+                      onError={() =>
+                        setImageErrors((prev) => ({
+                          ...prev,
+                          [integration.name]: true,
+                        }))
+                      }
+                      sizes="64px"
+                    />
+                  </div>
+                ) : (
+                  <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center">
+                    <span className="text-2xl font-bold text-gray-600">
+                      {integration.name.charAt(0)}
+                    </span>
+                  </div>
+                )}
               </div>
               <h3 className="font-semibold text-gray-900 mb-1">
                 {integration.name}

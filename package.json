@@ -2,7 +2,7 @@
     "name": "sumo-web",
     "packageManager": "pnpm@8.10.0",
     "scripts": {
-        "dev": "next dev -p 3099",
+        "dev": "next dev -p 3099 --turbopack",
         "build": "next build",
         "start": "next start -p 3099",
         "lint": "next lint"

@@ -1,13 +1,15 @@
 import { Button } from "@/components/ui/button";
 import { Star, Users, TrendingUp } from "lucide-react";
+import Link from "next/link";
+import Image from "next/image";
 
 export default function HeroSection() {
   return (
     <section className="relative bg-gradient-to-br from-gray-50 to-orange-50 py-20 lg:pb-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-2 gap-12 items-center">
+        <div className="grid lg:grid-cols-2 gap-12 items-start">
           {/* Left Column - Content */}
-          <div className="space-y-8">
+          <div className="space-y-8 lg:-mt-10">
             <div className="space-y-4">
               <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 leading-tight">
                 Smart Restaurant Management That{" "}
@@ -46,9 +48,9 @@ export default function HeroSection() {
                 className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 text-lg"
                 asChild
               >
-                <a href="https://sumo.ethertech.ltd/login">
+                <Link href="https://sumo.ethertech.ltd/login">
                   Start 14-Day Free Trial – No Credit Card Needed
-                </a>
+                </Link>
               </Button>
               <Button
                 size="lg"
@@ -56,7 +58,7 @@ export default function HeroSection() {
                 className="border-orange-600 text-orange-600 hover:bg-orange-50 px-8 py-3 text-lg"
                 asChild
               >
-                <a href="https://sumo.ethertech.ltd">Book a Demo</a>
+                <Link href="https://sumo.ethertech.ltd">Book a Demo</Link>
               </Button>
             </div>
 
@@ -77,11 +79,17 @@ export default function HeroSection() {
           {/* Right Column - Dashboard Screenshot */}
           <div className="relative">
             <div className="relative">
-              <img
-                src="https://i.postimg.cc/hhW3tb2g/sumodash.png"
-                alt="Sumo Restaurant Dashboard"
-                className="w-full rounded-2xl shadow-2xl border border-gray-200"
-              />
+              <div className="relative w-full rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+                <Image
+                  src="https://i.postimg.cc/hhW3tb2g/sumodash.png"
+                  alt="Sumo Restaurant Dashboard"
+                  width={700}
+                  height={300}
+                  className="w-full h-auto object-cover rounded-2xl"
+                  priority
+                  sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                />
+              </div>
 
               {/* Overlay Stats */}
               <div className="absolute -bottom-6 -left-6 bg-white rounded-xl shadow-lg p-4 border border-gray-200">

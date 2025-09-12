@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Check, Star } from "lucide-react";
+import Link from "next/link";
 
 export default function Pricing() {
   const plans = [
@@ -125,7 +126,9 @@ export default function Pricing() {
                   }`}
                   asChild
                 >
-                  <a href="https://sumo.ethertech.ltd/login">{plan.cta}</a>
+                  <Link href="https://sumo.ethertech.ltd/login">
+                    {plan.cta}
+                  </Link>
                 </Button>
               </div>
             </div>
@@ -148,9 +151,9 @@ export default function Pricing() {
                 className="bg-white text-orange-600 hover:bg-gray-100 px-8 py-3"
                 asChild
               >
-                <a href="https://sumo.ethertech.ltd/login">
+                <Link href="https://sumo.ethertech.ltd/login">
                   Start 14-Day Free Trial
-                </a>
+                </Link>
               </Button>
               <Button
                 size="lg"
@@ -158,7 +161,7 @@ export default function Pricing() {
                 className="border-white text-white hover:bg-orange-600 px-8 py-3"
                 asChild
               >
-                <a href="https://sumo.ethertech.ltd">Schedule a Demo</a>
+                <Link href="https://sumo.ethertech.ltd">Schedule a Demo</Link>
               </Button>
             </div>
             <p className="text-sm text-orange-200">

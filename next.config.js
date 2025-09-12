@@ -4,7 +4,12 @@ const nextConfig = {
     optimizePackageImports: ["framer-motion", "lucide-react"],
   },
   images: {
-    domains: ["images.unsplash.com"],
+    domains: [
+      "i.postimg.cc",
+      "images.unsplash.com",
+      "logos-world.net",
+      "cdn.worldvectorlogo.com",
+    ],
   },
 };
 
