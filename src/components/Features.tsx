@@ -6,7 +6,11 @@ import {
   Plug,
   Smartphone,
 } from "lucide-react";
-import { Button } from "@/components/ui/button";
+import { SectionContainer } from "@/components/ui/section-container";
+import { SectionHeader } from "@/components/ui/section-header";
+import { Card } from "@/components/ui/card";
+import { IconContainer } from "@/components/ui/icon-container";
+import { SecondaryButton } from "@/components/ui/secondary-button";
 
 export default function Features() {
   const features = [
@@ -61,58 +65,53 @@ export default function Features() {
   ];
 
   return (
-    <section id="features" className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-4">
+    <SectionContainer id="features" background="gray">
+      <SectionHeader
+        title={
+          <>
             Powerful Features{" "}
             <span className="text-orange-600">Built for Restaurants</span>
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Everything you need to run a successful restaurant operation, from
-            inventory to insights, all in one platform.
-          </p>
-        </div>
+          </>
+        }
+        subtitle="Everything you need to run a successful restaurant operation, from inventory to insights, all in one platform."
+      />
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-          {features.map((feature, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-2xl p-8 shadow-sm hover:shadow-lg transition-shadow border border-gray-200"
-            >
-              <div className="space-y-6">
-                <div
-                  className={`w-16 h-16 rounded-2xl ${feature.color} flex items-center justify-center`}
-                >
-                  <feature.icon className="h-8 w-8" />
-                </div>
+      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
+        {features.map((feature, index) => (
+          <Card key={index} padding="lg">
+            <div className="space-y-6">
+              <IconContainer
+                color={
+                  feature.color.split("-")[0] as
+                    | "orange"
+                    | "blue"
+                    | "green"
+                    | "purple"
+                }
+                size="lg"
+              >
+                <feature.icon className="h-8 w-8" />
+              </IconContainer>
 
-                <div className="space-y-3">
-                  <h3 className="text-xl font-bold text-gray-900">
-                    {feature.title}
-                  </h3>
-                  <p className="text-gray-600 leading-relaxed">
-                    {feature.description}
-                  </p>
-                  <div className="inline-flex items-center px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-sm font-medium">
-                    {feature.benefit}
-                  </div>
+              <div className="space-y-3">
+                <h3 className="text-xl font-bold text-gray-900">
+                  {feature.title}
+                </h3>
+                <p className="text-gray-600 leading-relaxed">
+                  {feature.description}
+                </p>
+                <div className="inline-flex items-center px-3 py-1 rounded-full bg-orange-100 text-orange-700 text-sm font-medium">
+                  {feature.benefit}
                 </div>
               </div>
             </div>
-          ))}
-        </div>
-
-        <div className="text-center">
-          <Button
-            size="lg"
-            variant="outline"
-            className="border-orange-600 text-orange-600 hover:bg-orange-50 px-8 py-3"
-          >
-            Explore All Features
-          </Button>
-        </div>
+          </Card>
+        ))}
       </div>
-    </section>
+
+      <div className="text-center">
+        <SecondaryButton>Explore All Features</SecondaryButton>
+      </div>
+    </SectionContainer>
   );
 }

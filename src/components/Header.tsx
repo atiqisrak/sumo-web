@@ -1,6 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
+import { NavLink } from "@/components/ui/nav-link";
 import { Menu, X } from "lucide-react";
 import { useState } from "react";
 import Link from "next/link";
@@ -29,30 +30,12 @@ export default function Header() {
 
           {/* Desktop Navigation */}
           <nav className="hidden md:flex space-x-8">
-            <Link
-              href="#features"
-              className="text-gray-700 hover:text-orange-600 transition-colors"
-            >
-              Features
-            </Link>
-            <Link
-              href="#solutions"
-              className="text-gray-700 hover:text-orange-600 transition-colors"
-            >
-              Solutions
-            </Link>
-            <Link
-              href="#pricing"
-              className="text-gray-700 hover:text-orange-600 transition-colors"
-            >
-              Pricing
-            </Link>
-            <Link
-              href="https://sumo.ethertech.ltd"
-              className="text-gray-700 hover:text-orange-600 transition-colors"
-            >
+            <NavLink href="#features">Features</NavLink>
+            <NavLink href="#solutions">Solutions</NavLink>
+            <NavLink href="#pricing">Pricing</NavLink>
+            <NavLink href="https://sumo.ethertech.ltd" external>
               Live Demo
-            </Link>
+            </NavLink>
           </nav>
 
           {/* Desktop CTA */}
@@ -94,30 +77,22 @@ export default function Header() {
         {isMenuOpen && (
           <div className="md:hidden">
             <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3 bg-white border-t">
-              <Link
-                href="#features"
-                className="block px-3 py-2 text-gray-700 hover:text-orange-600"
-              >
+              <NavLink href="#features" className="block px-3 py-2">
                 Features
-              </Link>
-              <Link
-                href="#solutions"
-                className="block px-3 py-2 text-gray-700 hover:text-orange-600"
-              >
+              </NavLink>
+              <NavLink href="#solutions" className="block px-3 py-2">
                 Solutions
-              </Link>
-              <Link
-                href="#pricing"
-                className="block px-3 py-2 text-gray-700 hover:text-orange-600"
-              >
+              </NavLink>
+              <NavLink href="#pricing" className="block px-3 py-2">
                 Pricing
-              </Link>
-              <Link
+              </NavLink>
+              <NavLink
                 href="https://sumo.ethertech.ltd"
-                className="block px-3 py-2 text-gray-700 hover:text-orange-600"
+                external
+                className="block px-3 py-2"
               >
                 Live Demo
-              </Link>
+              </NavLink>
               <div className="px-3 py-2 space-y-2">
                 <Button
                   variant="ghost"

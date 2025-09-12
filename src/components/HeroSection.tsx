@@ -1,5 +1,6 @@
-import { Button } from "@/components/ui/button";
-import { Star, Users, TrendingUp } from "lucide-react";
+import { PrimaryButton } from "@/components/ui/primary-button";
+import { SecondaryButton } from "@/components/ui/secondary-button";
+import { StarRating } from "@/components/ui/star-rating";
 import Link from "next/link";
 import Image from "next/image";
 
@@ -27,39 +28,23 @@ export default function HeroSection() {
             {/* Trust Indicators */}
             <div className="flex items-center space-x-6">
               <div className="flex items-center space-x-1">
-                <div className="flex">
-                  {[...Array(5)].map((_, i) => (
-                    <Star
-                      key={i}
-                      className="h-5 w-5 text-yellow-400 fill-current"
-                    />
-                  ))}
-                </div>
+                <StarRating rating={4.9} size="lg" showRating />
                 <span className="text-sm font-medium text-gray-700">
-                  4.9/5 from 500+ reviews
+                  from 500+ reviews
                 </span>
               </div>
             </div>
 
             {/* CTAs */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button
-                size="lg"
-                className="bg-orange-600 hover:bg-orange-700 text-white px-8 py-3 text-lg"
-                asChild
-              >
+              <PrimaryButton asChild>
                 <Link href="https://sumo.ethertech.ltd/login">
                   Start 14-Day Free Trial – No Credit Card Needed
                 </Link>
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-orange-600 text-orange-600 hover:bg-orange-50 px-8 py-3 text-lg"
-                asChild
-              >
+              </PrimaryButton>
+              <SecondaryButton asChild>
                 <Link href="https://sumo.ethertech.ltd">Book a Demo</Link>
-              </Button>
+              </SecondaryButton>
             </div>
 
             {/* Customer Logos */}

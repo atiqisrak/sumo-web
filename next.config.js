@@ -3,12 +3,25 @@ const nextConfig = {
   experimental: {
     optimizePackageImports: ["framer-motion", "lucide-react"],
   },
+  devIndicators: false,
   images: {
-    domains: [
-      "i.postimg.cc",
-      "images.unsplash.com",
-      "logos-world.net",
-      "cdn.worldvectorlogo.com",
+    remotePatterns: [
+      {
+        protocol: "https",
+        hostname: "i.postimg.cc",
+      },
+      {
+        protocol: "https",
+        hostname: "logos-world.net",
+      },
+      {
+        protocol: "https",
+        hostname: "cdn.worldvectorlogo.com",
+      },
+      {
+        protocol: "https",
+        hostname: "images.unsplash.com",
+      },
     ],
   },
 };

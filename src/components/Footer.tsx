@@ -6,7 +6,7 @@ import {
   MessageCircle,
 } from "lucide-react";
 import Image from "next/image";
-import Link from "next/link";
+import { NavLink } from "@/components/ui/nav-link";
 
 export default function Footer() {
   const currentYear = new Date().getFullYear();
@@ -17,11 +17,6 @@ export default function Footer() {
         <div className="grid md:grid-cols-4 gap-8 mb-8">
           {/* Company */}
           <div className="space-y-4">
-            {/* <img
-              src="https://i.postimg.cc/v8xxnkmB/logo-horizontal.png"
-              alt="Sumo"
-              className="h-8 w-auto filter brightness-0 invert"
-            /> */}
             <Image
               src={"https://i.postimg.cc/v8xxnkmB/logo-horizontal.png"}
               alt="Sumo"
@@ -46,33 +41,28 @@ export default function Footer() {
             <h4 className="text-lg font-semibold">Product</h4>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <Link
-                  href="#features"
-                  className="hover:text-white transition-colors"
-                >
+                <NavLink href="#features" className="hover:text-white">
                   Features
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
+                <NavLink
                   href="https://sumo.ethertech.ltd"
-                  className="hover:text-white transition-colors"
+                  external
+                  className="hover:text-white"
                 >
                   Live Demo
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link
-                  href="#pricing"
-                  className="hover:text-white transition-colors"
-                >
+                <NavLink href="#pricing" className="hover:text-white">
                   Pricing
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link href="#" className="hover:text-white transition-colors">
+                <NavLink href="#" className="hover:text-white">
                   API
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </div>
@@ -82,24 +72,24 @@ export default function Footer() {
             <h4 className="text-lg font-semibold">Company</h4>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <Link href="#" className="hover:text-white transition-colors">
+                <NavLink href="#" className="hover:text-white">
                   About
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link href="#" className="hover:text-white transition-colors">
+                <NavLink href="#" className="hover:text-white">
                   Blog
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link href="#" className="hover:text-white transition-colors">
+                <NavLink href="#" className="hover:text-white">
                   Careers
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link href="#" className="hover:text-white transition-colors">
+                <NavLink href="#" className="hover:text-white">
                   Press
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </div>
@@ -109,24 +99,24 @@ export default function Footer() {
             <h4 className="text-lg font-semibold">Support</h4>
             <ul className="space-y-2 text-gray-400">
               <li>
-                <Link href="#" className="hover:text-white transition-colors">
+                <NavLink href="#" className="hover:text-white">
                   Help Center
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link href="#" className="hover:text-white transition-colors">
+                <NavLink href="#" className="hover:text-white">
                   Contact
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link href="#" className="hover:text-white transition-colors">
+                <NavLink href="#" className="hover:text-white">
                   Privacy
-                </Link>
+                </NavLink>
               </li>
               <li>
-                <Link href="#" className="hover:text-white transition-colors">
+                <NavLink href="#" className="hover:text-white">
                   Terms
-                </Link>
+                </NavLink>
               </li>
             </ul>
           </div>

@@ -1,14 +1,13 @@
 "use client";
 
-import { Button } from "@/components/ui/button";
-import Image from "next/image";
-import { useState } from "react";
+import { SectionContainer } from "@/components/ui/section-container";
+import { SectionHeader } from "@/components/ui/section-header";
+import { Card } from "@/components/ui/card";
+import { ImageWithFallback } from "@/components/ui/image-with-fallback";
+import { PrimaryButton } from "@/components/ui/primary-button";
+import { SecondaryButton } from "@/components/ui/secondary-button";
 
 export default function Integrations() {
-  const [imageErrors, setImageErrors] = useState<{ [key: string]: boolean }>(
-    {}
-  );
-
   const integrations = [
     {
       name: "QuickBooks",
@@ -63,86 +62,54 @@ export default function Integrations() {
   ];
 
   return (
-    <section className="py-20 bg-gray-50">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-4">
+    <SectionContainer background="gray">
+      <SectionHeader
+        title={
+          <>
             Seamless Integrations with{" "}
             <span className="text-orange-600">Your Favorite Tools</span>
-          </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-            Connect in minutes for automated workflows. No more data silos or
-            manual data entry.
-          </p>
-        </div>
+          </>
+        }
+        subtitle="Connect in minutes for automated workflows. No more data silos or manual data entry."
+      />
 
-        <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
-          {integrations.map((integration, index) => (
-            <div
-              key={index}
-              className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow border border-gray-200 text-center"
-            >
-              <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
-                {!imageErrors[integration.name] ? (
-                  <div className="relative w-16 h-16">
-                    <Image
-                      src={integration.logo}
-                      alt={integration.name}
-                      fill
-                      className="object-contain"
-                      onError={() =>
-                        setImageErrors((prev) => ({
-                          ...prev,
-                          [integration.name]: true,
-                        }))
-                      }
-                      sizes="64px"
-                    />
-                  </div>
-                ) : (
-                  <div className="w-16 h-16 bg-gray-100 rounded-lg flex items-center justify-center">
-                    <span className="text-2xl font-bold text-gray-600">
-                      {integration.name.charAt(0)}
-                    </span>
-                  </div>
-                )}
-              </div>
-              <h3 className="font-semibold text-gray-900 mb-1">
-                {integration.name}
-              </h3>
-              <p className="text-sm text-gray-500">{integration.category}</p>
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-8 mb-12">
+        {integrations.map((integration, index) => (
+          <Card key={index} className="text-center" padding="md">
+            <div className="w-16 h-16 mx-auto mb-4 flex items-center justify-center">
+              <ImageWithFallback
+                src={integration.logo}
+                alt={integration.name}
+                width={64}
+                height={64}
+                fallbackText={integration.name.charAt(0)}
+                sizes="64px"
+              />
             </div>
-          ))}
-        </div>
-
-        <div className="bg-white rounded-2xl p-8 shadow-sm border border-gray-200">
-          <div className="text-center space-y-6">
-            <h3 className="text-2xl font-bold text-gray-900">
-              200+ Integrations Available
+            <h3 className="font-semibold text-gray-900 mb-1">
+              {integration.name}
             </h3>
-            <p className="text-gray-600 max-w-2xl mx-auto">
-              From accounting software to delivery platforms, Sumo connects with
-              all the tools you already use. Set up automated workflows in
-              minutes, not hours.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button
-                size="lg"
-                className="bg-orange-600 hover:bg-orange-700 text-white px-8"
-              >
-                View All Integrations
-              </Button>
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-orange-600 text-orange-600 hover:bg-orange-50 px-8"
-              >
-                Request Integration
-              </Button>
-            </div>
+            <p className="text-sm text-gray-500">{integration.category}</p>
+          </Card>
+        ))}
+      </div>
+
+      <Card padding="lg">
+        <div className="text-center space-y-6">
+          <h3 className="text-2xl font-bold text-gray-900">
+            200+ Integrations Available
+          </h3>
+          <p className="text-gray-600 max-w-2xl mx-auto">
+            From accounting software to delivery platforms, Sumo connects with
+            all the tools you already use. Set up automated workflows in
+            minutes, not hours.
+          </p>
+          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <PrimaryButton>View All Integrations</PrimaryButton>
+            <SecondaryButton>Request Integration</SecondaryButton>
           </div>
         </div>
-      </div>
-    </section>
+      </Card>
+    </SectionContainer>
   );
 }
