@@ -7,7 +7,7 @@ import Integrations from "@/components/Integrations";
 import Pricing from "@/components/Pricing";
 import Footer from "@/components/Footer";
 
-export default function Index() {
+export default function Home() {
   return (
     <div className="min-h-screen">
       <Header />

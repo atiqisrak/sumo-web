@@ -1,3 +1,5 @@
+"use client";
+
 import { Button } from "@/components/ui/button";
 
 export default function Integrations() {
@@ -82,7 +84,9 @@ export default function Integrations() {
                   onError={(e) => {
                     // Fallback to text logo if image fails to load
                     e.currentTarget.style.display = "none";
-                    e.currentTarget.nextElementSibling.style.display = "flex";
+                    const fallback = e.currentTarget
+                      .nextElementSibling as HTMLElement;
+                    if (fallback) fallback.style.display = "flex";
                   }}
                 />
                 <div className="w-16 h-16 bg-gray-100 rounded-lg hidden items-center justify-center">

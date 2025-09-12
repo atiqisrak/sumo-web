@@ -3,7 +3,7 @@ import { Star, Users, TrendingUp } from "lucide-react";
 
 export default function HeroSection() {
   return (
-    <section className="relative bg-gradient-to-br from-gray-50 to-orange-50 py-20 lg:py-32">
+    <section className="relative bg-gradient-to-br from-gray-50 to-orange-50 py-20 lg:pb-32">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left Column - Content */}
