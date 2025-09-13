@@ -1,0 +1,29 @@
+# Ignore files/folders for AI context to reduce noise
+node_modules/
+dist/
+build/
+.next/
+out/
+coverage/
+*.log
+.env
+.env.local
+.env.development
+.env.production
+public/uploads/
+src/lib/__tests__/
+src/components/__tests__/
+*.test.ts
+*.test.tsx
+*.spec.ts
+*.spec.tsx
+
+# Ignore temporary or cache files
+*.cache
+*.tmp
+*.swp
+*.swo
+
+# Ignore generated assets not relevant for context
+public/assets/images/raw/
+public/assets/videos/raw/

@@ -1,0 +1,65 @@
+{
+    "name": "Sumo Marketing Website",
+    "description": "A visual-heavy, conversion-optimized marketing website for Sumo, a restaurant management SaaS. Targets cafe/chain owners/managers with AI analytics, inventory tracking, and SumoBot demos. Built with Next.js 15, TypeScript, Tailwind, shadcn/ui, and Framer Motion. Emphasizes 70% visuals (dashboard screenshots, 30-60s animated explainers), multilingual stubs (next-intl), and SEO/ad support.",
+    "version": "1.0.0",
+    "stack": {
+        "frontend": [
+            "Next.js 15",
+            "TypeScript",
+            "Tailwind CSS",
+            "shadcn/ui",
+            "Framer Motion"
+        ],
+        "integrations": [
+            "Mailchimp",
+            "HubSpot",
+            "Intercom",
+            "Stripe",
+            "Sanity CMS"
+        ],
+        "analytics": [
+            "Google Analytics 4",
+            "Hotjar"
+        ],
+        "i18n": [
+            "next-intl"
+        ],
+        "performance": [
+            "SSG",
+            "ISR",
+            "lazy-loading"
+        ],
+        "accessibility": [
+            "WCAG 2.1"
+        ]
+    },
+    "aiInstructions": {
+        "codeGeneration": {
+            "language": "TypeScript",
+            "framework": "Next.js 15",
+            "componentStyle": "Extend shadcn/ui components (e.g., button.tsx, card.tsx) with Framer Motion animations (e.g., hover scale, fade transitions). Use Tailwind for styling. Ensure reusability with typed props (e.g., VisualProps: { src: string; alt: string; isInteractive?: boolean }).",
+            "namingConvention": "PascalCase for components (e.g., FeatureCard.tsx), kebab-case for files/folders (e.g., src/app/features/inventory/page.tsx).",
+            "fileStructure": "Follow src/app for pages (e.g., page.tsx, features/inventory/page.tsx), src/components for reusable components (e.g., landing/HeroSection.tsx, features/FeatureCard.tsx).",
+            "visuals": "Integrate 70% visual content: web-sourced images (Unsplash/Pexels for cafes/chains), dashboard screenshots, 30-60s Framer Motion-animated explainer videos. Add alt texts with SEO keywords (e.g., 'AI inventory dashboard for restaurant management').",
+            "conversions": "Embed CTAs in all components (e.g., TrialSignupForm.tsx, DemoRequestForm.tsx). Prioritize trial sign-ups and demo bookings with empowering copy (e.g., 'Ditch outdated software—Sumo’s AI tracks everything'). Track form submits via GA4."
+        },
+        "contentGeneration": {
+            "tone": "Empowering, relatable, professional. Target frustrated cafe/chain owners/managers upgrading from outdated software.",
+            "copyGuidelines": "Highlight AI analytics, inventory tracking, SumoBot. Use benefit-driven headlines (e.g., 'Cut waste by 25% with intelligent tracking'). Include 3 generated case studies (e.g., 'Cafe Bloom: 40% faster POs'). Gate 30% content (e.g., GRN guide PDF).",
+            "seo": "Incorporate keywords: 'restaurant inventory management', 'AI restaurant tracking', 'purchase order software', 'franchise outlet management'. Add meta/OG tags, schema (VideoObject for explainers)."
+        },
+        "multilingual": "Use next-intl for English/Spanish stubs. Add hreflang tags for SEO. Ensure i18n-ready components (e.g., LanguageSelector.tsx)."
+    },
+    "paths": {
+        "root": "./",
+        "src": "src/",
+        "pages": "src/app/",
+        "components": "src/components/",
+        "assets": "public/assets/",
+        "cms": "src/lib/cms/"
+    },
+    "integrations": {
+        "demoLinks": "Embed SaaS demo iframes in DemoRequestForm.tsx and /contact/demo/page.tsx.",
+        "analytics": "Track form submissions and video views via GA4 events. Use Hotjar for heatmap insights on interactive demos."
+    }
+}
