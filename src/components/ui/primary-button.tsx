@@ -1,7 +1,10 @@
+"use client";
+
 import { Button, ButtonProps } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 interface PrimaryButtonProps {
   children: ReactNode;
@@ -29,31 +32,37 @@ export function PrimaryButton({
   };
 
   return (
-    <Button
-      size={size as ButtonProps["size"]}
-      className={cn(
-        "bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:shadow-orange-500/25 transition-all duration-300 hover:-translate-y-1 group",
-        sizeClasses[size],
-        className
-      )}
-      onClick={onClick}
-      asChild={asChild}
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
-      {href ? (
-        <a href={href} className="flex items-center gap-2">
-          {children}
-          {showArrow && (
-            <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
-          )}
-        </a>
-      ) : (
-        <span className="flex items-center gap-2">
-          {children}
-          {showArrow && (
-            <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
-          )}
-        </span>
-      )}
-    </Button>
+      <Button
+        size={size as ButtonProps["size"]}
+        className={cn(
+          "bg-gradient-to-r from-orange-600 to-red-600 hover:from-orange-700 hover:to-red-700 text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl hover:shadow-orange-500/25 transition-all duration-300 hover:-translate-y-1 group",
+          sizeClasses[size],
+          className
+        )}
+        onClick={onClick}
+        asChild={asChild}
+      >
+        {href ? (
+          <a href={href} className="flex items-center gap-2">
+            {children}
+            {showArrow && (
+              <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+            )}
+          </a>
+        ) : (
+          <span className="flex items-center gap-2">
+            {children}
+            {showArrow && (
+              <ArrowRight className="h-5 w-5 group-hover:translate-x-1 transition-transform duration-300" />
+            )}
+          </span>
+        )}
+      </Button>
+    </motion.div>
   );
 }
