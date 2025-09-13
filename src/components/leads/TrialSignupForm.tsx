@@ -43,8 +43,11 @@ export function TrialSignupForm({
       await new Promise((resolve) => setTimeout(resolve, 2000));
 
       // Track conversion event
-      if (typeof window !== "undefined" && (window as any).gtag) {
-        (window as any).gtag("event", "trial_signup", {
+      if (
+        typeof window !== "undefined" &&
+        (window as { gtag?: unknown }).gtag
+      ) {
+        (window as { gtag: Function }).gtag("event", "trial_signup", {
           event_category: "engagement",
           event_label: "trial_signup_form",
           value: 1,

@@ -93,7 +93,7 @@ export default function AboutPage() {
                 transition={{ duration: 0.8 }}
               >
                 <h1 className="text-4xl lg:text-6xl font-bold text-gray-900 mb-6 leading-tight">
-                  We're Restaurant People,{" "}
+                  We&apos;re Restaurant People,{" "}
                   <span className="text-orange-600">
                     Building for Restaurant People
                   </span>
@@ -238,7 +238,7 @@ export default function AboutPage() {
               </h2>
               <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
                 Join thousands of restaurants that have transformed their
-                operations with Sumo's intelligent management platform.
+                operations with Sumo&apos;s intelligent management platform.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <PrimaryButton asChild>

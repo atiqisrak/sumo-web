@@ -10,6 +10,7 @@ interface CardProps {
   hover?: boolean;
   padding?: "sm" | "md" | "lg";
   variant?: "default" | "gradient" | "outlined";
+  onClick?: () => void;
 }
 
 export function Card({
@@ -18,6 +19,7 @@ export function Card({
   hover = true,
   padding = "md",
   variant = "default",
+  onClick,
 }: CardProps) {
   const paddingClasses = {
     sm: "p-4",
@@ -50,6 +52,7 @@ export function Card({
           boxShadow: "0 25px 50px -12px rgba(251, 146, 60, 0.25)",
         }}
         transition={{ type: "spring", stiffness: 300, damping: 20 }}
+        onClick={onClick}
       >
         {children}
       </motion.div>
@@ -65,8 +68,72 @@ export function Card({
         hoverClasses,
         className
       )}
+      onClick={onClick}
     >
       {children}
     </div>
+  );
+}
+
+export function CardHeader({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn("flex flex-col space-y-1.5", className)}>{children}</div>
+  );
+}
+
+export function CardContent({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return <div className={cn("pt-0", className)}>{children}</div>;
+}
+
+export function CardDescription({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return <p className={cn("text-sm text-gray-600", className)}>{children}</p>;
+}
+
+export function CardTitle({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <h3
+      className={cn(
+        "text-lg font-semibold leading-none tracking-tight",
+        className
+      )}
+    >
+      {children}
+    </h3>
+  );
+}
+
+export function CardFooter({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <div className={cn("flex items-center pt-0", className)}>{children}</div>
   );
 }

@@ -1,247 +1,318 @@
-// Analytics configuration and utilities for Sumo marketing website
-
-export interface AnalyticsEvent {
-  event: string;
-  properties: Record<string, any>;
-  timestamp: string;
-  userId?: string;
-  sessionId?: string;
-}
-
-export interface ConversionEvent extends AnalyticsEvent {
-  event: 'conversion';
-  properties: {
-    type: 'trial_signup' | 'demo_request' | 'download' | 'newsletter_signup' | 'contact_form';
-    value?: number;
-    currency?: string;
-    source?: string;
-    campaign?: string;
-  };
-}
-
-// Analytics configuration
-export const analyticsConfig = {
-  // Google Analytics 4
-  ga4: {
-    measurementId: process.env.NEXT_PUBLIC_GA4_MEASUREMENT_ID || 'G-XXXXXXXXXX',
-    enabled: process.env.NODE_ENV === 'production'
-  },
-
-  // Hotjar for heatmaps and user behavior
-  hotjar: {
-    siteId: process.env.NEXT_PUBLIC_HOTJAR_SITE_ID || 'XXXXXXX',
-    enabled: process.env.NODE_ENV === 'production'
-  },
-
-  // Facebook Pixel
-  facebookPixel: {
-    pixelId: process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID || 'XXXXXXXXXXXXX',
-    enabled: process.env.NODE_ENV === 'production'
-  },
-
-  // LinkedIn Insight Tag
-  linkedin: {
-    partnerId: process.env.NEXT_PUBLIC_LINKEDIN_PARTNER_ID || 'XXXXXX',
-    enabled: process.env.NODE_ENV === 'production'
-  }
-};
-
-// Event tracking functions
-export const trackEvent = (event: AnalyticsEvent): void => {
-  if (typeof window === 'undefined') return;
-
-  // Google Analytics 4
-  if (analyticsConfig.ga4.enabled && window.gtag) {
-    window.gtag('event', event.event, event.properties);
-  }
-
-  // Facebook Pixel
-  if (analyticsConfig.facebookPixel.enabled && window.fbq) {
-    window.fbq('track', event.event, event.properties);
-  }
-
-  // LinkedIn Insight Tag
-  if (analyticsConfig.linkedin.enabled && window.lintrk) {
-    window.lintrk('track', { conversion_id: event.event });
-  }
-
-  // Console log for development
-  if (process.env.NODE_ENV === 'development') {
-    console.log('Analytics Event:', event);
-  }
-};
-
-// Conversion tracking
-export const trackConversion = (conversion: ConversionEvent): void => {
-  trackEvent(conversion);
-
-  // Enhanced ecommerce for GA4
-  if (analyticsConfig.ga4.enabled && window.gtag) {
-    window.gtag('event', 'purchase', {
-      transaction_id: conversion.timestamp,
-      value: conversion.properties.value || 0,
-      currency: conversion.properties.currency || 'USD',
-      items: [{
-        item_id: conversion.properties.type,
-        item_name: conversion.properties.type,
-        category: 'SaaS',
-        quantity: 1,
-        price: conversion.properties.value || 0
-      }]
-    });
-  }
-};
-
-// Page view tracking
-export const trackPageView = (url: string, title: string): void => {
-  if (typeof window === 'undefined') return;
-
-  // Google Analytics 4
-  if (analyticsConfig.ga4.enabled && window.gtag) {
-    window.gtag('config', analyticsConfig.ga4.measurementId, {
-      page_title: title,
-      page_location: url
-    });
-  }
-
-  // Facebook Pixel
-  if (analyticsConfig.facebookPixel.enabled && window.fbq) {
-    window.fbq('track', 'PageView');
-  }
-
-  // LinkedIn Insight Tag
-  if (analyticsConfig.linkedin.enabled && window.lintrk) {
-    window.lintrk('track', { conversion_id: 'page_view' });
-  }
-};
-
-// Form submission tracking
-export const trackFormSubmission = (
-  formName: string, 
-  success: boolean, 
-  additionalData?: Record<string, any>
-): void => {
-  trackEvent({
-    event: 'form_submit',
-    properties: {
-      form_name: formName,
-      success,
-      ...additionalData
-    },
-    timestamp: new Date().toISOString()
-  });
-};
-
-// Video engagement tracking
-export const trackVideoEngagement = (
-  videoId: string,
-  action: 'play' | 'pause' | 'complete' | 'seek',
-  progress?: number
-): void => {
-  trackEvent({
-    event: 'video_engagement',
-    properties: {
-      video_id: videoId,
-      action,
-      progress
-    },
-    timestamp: new Date().toISOString()
-  });
-};
-
-// Feature interaction tracking
-export const trackFeatureInteraction = (
-  featureName: string,
-  action: 'view' | 'click' | 'hover' | 'filter',
-  additionalData?: Record<string, any>
-): void => {
-  trackEvent({
-    event: 'feature_interaction',
-    properties: {
-      feature_name: featureName,
-      action,
-      ...additionalData
-    },
-    timestamp: new Date().toISOString()
-  });
-};
-
-// A/B testing tracking
-export const trackExperiment = (
-  experimentId: string,
-  variant: string,
-  action: 'view' | 'click' | 'convert'
-): void => {
-  trackEvent({
-    event: 'experiment',
-    properties: {
-      experiment_id: experimentId,
-      variant,
-      action
-    },
-    timestamp: new Date().toISOString()
-  });
-};
-
-// UTM parameter tracking
-export const getUtmParams = (): Record<string, string> => {
-  if (typeof window === 'undefined') return {};
-  
-  const urlParams = new URLSearchParams(window.location.search);
-  const utmParams: Record<string, string> = {};
-  
-  const utmKeys = ['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content'];
-  
-  utmKeys.forEach(key => {
-    const value = urlParams.get(key);
-    if (value) {
-      utmParams[key] = value;
-    }
-  });
-  
-  return utmParams;
-};
-
-// User identification
-export const identifyUser = (userId: string, traits?: Record<string, any>): void => {
-  if (typeof window === 'undefined') return;
-
-  // Google Analytics 4
-  if (analyticsConfig.ga4.enabled && window.gtag) {
-    window.gtag('config', analyticsConfig.ga4.measurementId, {
-      user_id: userId,
-      custom_map: traits
-    });
-  }
-
-  // Facebook Pixel
-  if (analyticsConfig.facebookPixel.enabled && window.fbq) {
-    window.fbq('init', analyticsConfig.facebookPixel.pixelId, {
-      external_id: userId
-    });
-  }
-};
-
-// Initialize analytics
-export const initializeAnalytics = (): void => {
-  if (typeof window === 'undefined') return;
-
-  // Store UTM parameters in session storage
-  const utmParams = getUtmParams();
-  if (Object.keys(utmParams).length > 0) {
-    sessionStorage.setItem('utm_params', JSON.stringify(utmParams));
-  }
-
-  // Track initial page view
-  trackPageView(window.location.href, document.title);
-};
-
-// Global type declarations for analytics libraries
+// Google Analytics 4 tracking utilities
 declare global {
   interface Window {
-    gtag?: (...args: any[]) => void;
-    fbq?: (...args: any[]) => void;
-    lintrk?: (...args: any[]) => void;
-    hj?: (...args: any[]) => void;
+    gtag: (
+      command: string,
+      targetId: string,
+      config?: Record<string, unknown>
+    ) => void;
   }
 }
+
+// Initialize GA4
+export const initGA = (measurementId: string) => {
+  if (typeof window === "undefined") return;
+
+  // Load GA4 script
+  const script = document.createElement("script");
+  script.async = true;
+  script.src = `https://www.googletagmanager.com/gtag/js?id=${measurementId}`;
+  document.head.appendChild(script);
+
+  // Initialize gtag
+  window.gtag = window.gtag || function(...args: unknown[]) {
+    (window.gtag as { q: unknown[] }).q = (window.gtag as { q: unknown[] }).q || [];
+    (window.gtag as { q: unknown[] }).q.push(args);
+  };
+
+  window.gtag("js", new Date().toISOString());
+  window.gtag("config", measurementId, {
+    page_title: document.title,
+    page_location: window.location.href,
+  });
+};
+
+// Track page views
+export const trackPageView = (url: string, title?: string) => {
+  if (typeof window === "undefined" || !window.gtag) return;
+
+  window.gtag("config", process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID!, {
+    page_title: title || document.title,
+    page_location: url,
+  });
+};
+
+// Track events
+export const trackEvent = (
+  action: string,
+  category: string,
+  label?: string,
+  value?: number
+) => {
+  if (typeof window === "undefined" || !window.gtag) return;
+
+  window.gtag("event", action, {
+    event_category: category,
+    event_label: label,
+    value: value,
+  });
+};
+
+// Track form submissions
+export const trackFormSubmission = (
+  formName: string,
+  formType: "newsletter" | "download" | "demo" | "contact" | "trial",
+  success: boolean = true
+) => {
+  trackEvent(
+    success ? "form_submit_success" : "form_submit_error",
+    "form_interaction",
+    `${formType}_${formName}`,
+    success ? 1 : 0
+  );
+};
+
+// Track downloads
+export const trackDownload = (
+  fileName: string,
+  fileType: "pdf" | "video" | "image" | "other",
+  isGated: boolean = false
+) => {
+  trackEvent(
+    "file_download",
+    "engagement",
+    `${fileType}_${fileName}`,
+    isGated ? 1 : 0
+  );
+};
+
+// Track video interactions
+export const trackVideoInteraction = (
+  videoTitle: string,
+  action: "play" | "pause" | "complete" | "seek",
+  progress?: number
+) => {
+  trackEvent(
+    `video_${action}`,
+    "video_interaction",
+    videoTitle,
+    progress
+  );
+};
+
+// Track CTA clicks
+export const trackCTAClick = (
+  ctaText: string,
+  location: string,
+  ctaType: "button" | "link" | "form" | "modal"
+) => {
+  trackEvent(
+    "cta_click",
+    "engagement",
+    `${ctaType}_${ctaText}_${location}`,
+    1
+  );
+};
+
+// Track user engagement
+export const trackEngagement = (
+  action: "scroll" | "time_on_page" | "click" | "hover",
+  value?: number,
+  element?: string
+) => {
+  trackEvent(
+    `user_${action}`,
+    "engagement",
+    element,
+    value
+  );
+};
+
+// Track conversion events
+export const trackConversion = (
+  conversionType: "trial_signup" | "demo_booking" | "download" | "newsletter_signup",
+  value?: number,
+  currency?: string
+) => {
+  trackEvent(
+    "conversion",
+    "conversion",
+    conversionType,
+    value
+  );
+
+  // Track as purchase event for GA4 ecommerce
+  if (window.gtag) {
+    window.gtag("event", "purchase", {
+      transaction_id: `${conversionType}_${Date.now()}`,
+      value: value || 0,
+      currency: currency || "USD",
+      items: [{
+        item_id: conversionType,
+        item_name: conversionType.replace("_", " "),
+        category: "conversion",
+        quantity: 1,
+        price: value || 0,
+      }],
+    });
+  }
+};
+
+// Track lead generation
+export const trackLeadGeneration = (
+  leadSource: string,
+  leadType: "email" | "phone" | "demo" | "download",
+  leadValue?: number
+) => {
+  trackEvent(
+    "lead_generation",
+    "lead_capture",
+    `${leadSource}_${leadType}`,
+    leadValue
+  );
+};
+
+// Track A/B test events
+export const trackABTest = (
+  testName: string,
+  variant: string,
+  action: "view" | "click" | "convert"
+) => {
+  trackEvent(
+    `ab_test_${action}`,
+    "ab_testing",
+    `${testName}_${variant}`,
+    1
+  );
+};
+
+// Track mobile-specific events
+export const trackMobileEvent = (
+  action: string,
+  element: string,
+  value?: number
+) => {
+  trackEvent(
+    `mobile_${action}`,
+    "mobile_interaction",
+    element,
+    value
+  );
+};
+
+// Track exit intent
+export const trackExitIntent = (
+  page: string,
+  timeOnPage: number,
+  scrollDepth: number
+) => {
+  trackEvent(
+    "exit_intent",
+    "user_behavior",
+    page,
+    Math.round(timeOnPage)
+  );
+
+  trackEvent(
+    "scroll_depth",
+    "user_behavior",
+    page,
+    Math.round(scrollDepth)
+  );
+};
+
+// Track search queries
+export const trackSearch = (
+  query: string,
+  resultsCount: number
+) => {
+  trackEvent(
+    "search",
+    "search_interaction",
+    query,
+    resultsCount
+  );
+};
+
+// Enhanced ecommerce tracking
+export const trackEcommerce = (
+  action: "view_item" | "add_to_cart" | "remove_from_cart" | "begin_checkout" | "purchase",
+  itemId: string,
+  itemName: string,
+  category: string,
+  value?: number,
+  currency?: string
+) => {
+  if (!window.gtag) return;
+
+  window.gtag("event", action, {
+    currency: currency || "USD",
+    value: value,
+    items: [{
+      item_id: itemId,
+      item_name: itemName,
+      category: category,
+      quantity: 1,
+      price: value || 0,
+    }],
+  });
+};
+
+// Custom dimensions tracking
+export const trackCustomDimension = (
+  dimensionName: string,
+  value: string | number
+) => {
+  if (!window.gtag) return;
+
+  window.gtag("config", process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID!, {
+    custom_map: {
+      [dimensionName]: value,
+    },
+  });
+};
+
+// User properties
+export const setUserProperties = (properties: Record<string, unknown>) => {
+  if (!window.gtag) return;
+
+  window.gtag("config", process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID!, {
+    user_properties: properties,
+  });
+};
+
+// Track page performance
+export const trackPagePerformance = () => {
+  if (typeof window === "undefined" || !window.gtag) return;
+
+  // Track Core Web Vitals
+  if ("web-vital" in window) {
+    // This would be implemented with web-vitals library
+    // import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
+  }
+
+  // Track page load time
+  window.addEventListener("load", () => {
+    const loadTime = performance.timing.loadEventEnd - performance.timing.navigationStart;
+    trackEvent("page_load_time", "performance", "load_time", loadTime);
+  });
+};
+
+// Track errors
+export const trackError = (
+  errorMessage: string,
+  errorLocation: string,
+  errorType: "javascript" | "network" | "form" | "other"
+) => {
+  trackEvent(
+    "error",
+    "error_tracking",
+    `${errorType}_${errorLocation}`,
+    1
+  );
+};
+
+// Utility function to check if GA is loaded
+export const isGALoaded = (): boolean => {
+  return typeof window !== "undefined" && !!window.gtag;
+};

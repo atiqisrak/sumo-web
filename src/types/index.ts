@@ -109,7 +109,7 @@ export interface FormSubmission {
 
 export interface AnalyticsEvent {
   event: string;
-  properties: Record<string, any>;
+  properties: Record<string, unknown>;
   timestamp: string;
   userId?: string;
 }
@@ -143,12 +143,12 @@ export interface ComponentVariant {
 }
 
 export interface AnimationProps {
-  initial?: any;
-  animate?: any;
-  exit?: any;
-  transition?: any;
-  whileInView?: any;
-  viewport?: any;
+  initial?: unknown;
+  animate?: unknown;
+  exit?: unknown;
+  transition?: unknown;
+  whileInView?: unknown;
+  viewport?: unknown;
 }
 
 // API Response types
