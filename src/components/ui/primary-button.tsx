@@ -14,6 +14,8 @@ interface PrimaryButtonProps {
   showArrow?: boolean;
   className?: string;
   asChild?: boolean;
+  type?: "button" | "submit" | "reset";
+  disabled?: boolean;
 }
 
 export function PrimaryButton({
@@ -24,6 +26,8 @@ export function PrimaryButton({
   showArrow = false,
   className,
   asChild = false,
+  type = "button",
+  disabled = false,
 }: PrimaryButtonProps) {
   const sizeClasses = {
     sm: "px-4 py-2 text-sm",
@@ -46,6 +50,8 @@ export function PrimaryButton({
         )}
         onClick={onClick}
         asChild={asChild}
+        type={type}
+        disabled={disabled}
       >
         {href ? (
           <a href={href} className="flex items-center gap-2">

@@ -1,49 +1,28 @@
+"use client";
+
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 interface SectionHeaderProps {
-  title: string | ReactNode;
+  title: ReactNode;
   subtitle?: string;
-  badge?: {
-    text: string;
-    icon?: ReactNode;
-  };
+  centered?: boolean;
   className?: string;
-  titleClassName?: string;
-  subtitleClassName?: string;
 }
 
 export function SectionHeader({
   title,
   subtitle,
-  badge,
+  centered = true,
   className,
-  titleClassName,
-  subtitleClassName,
 }: SectionHeaderProps) {
   return (
-    <div className={cn("text-center mb-16", className)}>
-      {badge && (
-        <div className="inline-flex items-center gap-2 bg-orange-100 text-orange-700 px-4 py-2 rounded-full text-sm font-medium mb-6">
-          {badge.icon}
-          {badge.text}
-        </div>
-      )}
-      <h2
-        className={cn(
-          "text-3xl lg:text-5xl font-bold text-gray-900 mb-4",
-          titleClassName
-        )}
-      >
+    <div className={cn(centered && "text-center", "mb-16", className)}>
+      <h2 className="text-3xl lg:text-5xl font-bold text-gray-900 mb-6 leading-tight">
         {title}
       </h2>
       {subtitle && (
-        <p
-          className={cn(
-            "text-xl text-gray-600 max-w-3xl mx-auto",
-            subtitleClassName
-          )}
-        >
+        <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
           {subtitle}
         </p>
       )}

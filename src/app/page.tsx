@@ -10,7 +10,7 @@ import HowItWorks from "@/components/landing/HowItWorks";
 import SocialProof from "@/components/landing/SocialProof";
 import CTASection from "@/components/landing/CTASection";
 import TrustIndicators from "@/components/landing/TrustIndicators";
-import NewsletterSignup from "@/components/landing/NewsletterSignup";
+import { NewsletterSignup } from "@/components/landing/NewsletterSignup";
 
 export default function Home() {
   return (

@@ -1,6 +1,9 @@
+"use client";
+
 import { Button, ButtonProps } from "@/components/ui/button";
 import { ReactNode } from "react";
 import { cn } from "@/lib/utils";
+import { motion } from "framer-motion";
 
 interface SecondaryButtonProps {
   children: ReactNode;
@@ -26,18 +29,24 @@ export function SecondaryButton({
   };
 
   return (
-    <Button
-      size={size as ButtonProps["size"]}
-      variant="outline"
-      className={cn(
-        "border-orange-600 text-orange-600 hover:bg-orange-50 font-semibold rounded-2xl transition-all duration-300",
-        sizeClasses[size],
-        className
-      )}
-      onClick={onClick}
-      asChild={asChild}
+    <motion.div
+      whileHover={{ scale: 1.05 }}
+      whileTap={{ scale: 0.95 }}
+      transition={{ type: "spring", stiffness: 300, damping: 20 }}
     >
-      {href ? <a href={href}>{children}</a> : children}
-    </Button>
+      <Button
+        variant="outline"
+        size={size as ButtonProps["size"]}
+        className={cn(
+          "border-2 border-orange-600 text-orange-600 hover:bg-orange-600 hover:text-white font-semibold rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 hover:-translate-y-1",
+          sizeClasses[size],
+          className
+        )}
+        onClick={onClick}
+        asChild={asChild}
+      >
+        {href ? <a href={href}>{children}</a> : <span>{children}</span>}
+      </Button>
+    </motion.div>
   );
 }
